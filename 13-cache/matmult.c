@@ -70,7 +70,6 @@ matriz *matmult (matriz *A, matriz *B) {
     int i, j, k;
     matriz *C;
     C = cria_matriz(A->m, B->n);
-
     for (i = 0; i < A->m; i++) {
         for (j = 0; j < C->n; j++) {
             C->data[i*C->n + j] = 0;
@@ -81,6 +80,36 @@ matriz *matmult (matriz *A, matriz *B) {
         for (j = 0; j < C->n; j++) {            
             for (k = 0; k < A->n; k++) {
                 C->data[i*C->n + j] += A->data[i*A->n + k] * B->data[k*C->n + j];
+            }
+        }
+    }
+    return C;
+}
+#endif
+
+#ifdef op1
+matriz *matmult (matriz *A, matriz *B) {
+    int i, j, k;
+    matriz *C;
+    C = cria_matriz(A->m, B->n);
+    int a_m,c_n,a_n;
+    float *c_d,*a_d,*b_d;
+    a_m = A->m;
+    c_d=C->data;
+    a_d=A->data;
+    b_d=B->data;
+    c_n=C->n;
+    a_n =A->n;
+    for (i = 0; i < a_m; i++) {
+        for (j = 0; j < c_n; j++) {
+            c_d[i*c_n+ j] = 0;
+        }
+    }
+
+    for (i = 0; i < a_m; i++) {
+        for (j = 0; j < c_n; j++) {    
+            for (k = 0; k < a_n; k++) {
+                c_d[i*c_n + j] += a_d[i*a_n + k] * b_d[k*c_n + j];
             }
         }
     }
