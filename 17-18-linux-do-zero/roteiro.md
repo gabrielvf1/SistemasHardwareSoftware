@@ -34,6 +34,9 @@ Neste exemplo iremos usar a `glibc`, implementação feita pela GNU e usada na m
 
 **Pergunta**: Busque por outras implementações alternativas da `libc`. Liste uma abaixo e comente seus diferenciais em relação a `glibc`. \vspace{5em}
 
+musl, uClibc, dietlibc sao alternativas a glibc.A musl c é muito utilizada principalemnte para escrever e limpar eficientemente implemntacoes de biibliotecas em c.
+
+
 **Exercício**: Crie um programa *Hello world (seu nome)* e compile-o com o nome `hello-dyn`. O comando `ldd` é usado para listar todas as bibliotecas dinâmicas usadas por um executável. Use-o no seu *Hello world* e coloque a saída abaixo. Você consegue identificar a `libc` nesta saída? \vspace{5em}
 
 **Exercício**: Vamos agora usar a flag `-static` do `gcc` para compilar tudo estaticamente. Crie um novo executável `hello-static` e cheque que realmente ele não usa nenhuma biblioteca usando `ldd`. 
