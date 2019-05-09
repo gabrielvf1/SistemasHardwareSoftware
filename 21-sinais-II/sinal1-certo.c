@@ -1,25 +1,22 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
-#include <stdlib.h>
-int contagem = 0;
-struct sigaction s;
 
+int num_vezes = 0;
 void sig_handler(int num) {
-    printf("Chamou Ctrl+C\n");
-    contagem +=1;
-    if (contagem == 3){
-        printf("Apertou crtl c 3 vezes\n");
-        exit(0);
+    printf("Chamou Ctrl+C: %d\n", num_vezes);
+    if (num_vezes == 3) {
+        struct sigaction s;
+        s.sa_handler = SIG_DFL;
+        sigemptyset(&s.sa_mask);
+        printf("Chamou sigaction! %d\n", num_vezes);
+        sigaction(SIGINT, &s, NULL);
     }
-    s.sa_handler = SIG_DFL;
-    sigaction(SIGINT, &s, NULL);
-
-
-
+    num_vezes++;
 }
 
 int main() {
+    struct sigaction s;
     s.sa_handler = sig_handler;
     sigemptyset(&s.sa_mask);
     s.sa_flags = 0;
@@ -30,6 +27,6 @@ int main() {
     while(1) {
         sleep(1);
     }
-
+    
     return 0;
 }

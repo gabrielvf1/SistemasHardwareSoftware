@@ -1,35 +1,28 @@
 #include <stdio.h>
 #include <signal.h>
 #include <unistd.h>
-#include <stdlib.h>
-int contagem = 0;
-struct sigaction s;
+
+volatile int count = 0;
 
 void sig_handler(int num) {
     printf("Chamou Ctrl+C\n");
-    contagem +=1;
-    if (contagem == 3){
-        printf("Apertou crtl c 3 vezes\n");
-        exit(0);
-    }
-    s.sa_handler = SIG_DFL;
-    sigaction(SIGINT, &s, NULL);
-
-
-
+    count++;
 }
 
 int main() {
+    int count = 0;
+    struct sigaction s;
     s.sa_handler = sig_handler;
     sigemptyset(&s.sa_mask);
     s.sa_flags = 0;
     sigaction(SIGINT, &s, NULL);
-
+    
+    if (count >= 3) return 0;
+    
     printf("Meu pid: %d\n", getpid());
 
     while(1) {
         sleep(1);
     }
-
     return 0;
 }
