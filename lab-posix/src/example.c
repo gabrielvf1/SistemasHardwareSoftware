@@ -35,12 +35,11 @@ int test6(){
 			int b = 0;
 		}
 	}
-	printf("test6 Demora mas nao cai no Time Out \n");
+	//printf("test6 Demora mas nao cai no Time Out \n");
 	return 1;
 }
 
 int test7(){
-	int a = 100000/4;
 	while(1){
 
 	}
@@ -49,14 +48,14 @@ int test7(){
 
 int test8(){
 	 test_assert(1 == 1, "Test Pass Assert 1\n");
-	 test_printf("[PASS] Passou Assert 1\n");
+	 //test_printf("Passou Assert 1\n");
 	 test_assert(1 == 0, "Falhou Assert 2\n");
 	 //test_printf("test 8: Falhou Assert 2\n");
 	 test_assert(1 == 1, "Passou Assert 3\n");
 }
 
 int test9(){
-	int a = 2;
+	int a = 8;
 	for (int i = 0; i < a ; i++){
 		test_printf("Print %d\n", i );
 	}
@@ -64,10 +63,10 @@ int test9(){
 }
 int test10(){
 	 test_assert(1 == 1, "Test Rapido 1\n");
-	 test_printf("Rapido\n");
+	 //test_printf("Rapido\n");
 	 sleep(1);
 	 test_assert(1 == 1, "Test Lento 1\n");	
-	 test_printf("Lento\n");
+	 //test_printf("Lento\n");
 	 //test_assert(1 == 1, "Test Rapido 1\n");
 
 }

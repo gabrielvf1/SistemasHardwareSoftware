@@ -5,6 +5,14 @@
     #include <sys/wait.h>
     #include <string.h>
 
+    #define ANSI_COLOR_RED     "\x1b[31m"
+    #define ANSI_COLOR_GREEN   "\x1b[32m"
+    #define ANSI_COLOR_YELLOW  "\x1b[33m"
+    #define ANSI_COLOR_BLUE    "\x1b[34m"
+    #define ANSI_COLOR_MAGENTA "\x1b[35m"
+    #define ANSI_COLOR_CYAN    "\x1b[36m"
+    #define ANSI_COLOR_RESET   "\x1b[0m"
+
 int main() {
     int status;
     int size = sizeof(all_tests)/sizeof(test_data);
@@ -29,15 +37,19 @@ int main() {
         pid_t atual = waitpid(pidF[i],&status,0);
         if (WIFEXITED(status)){
             if(WEXITSTATUS(status)){
-                printf("[PASS] %s Teste bem Sucedido\n",all_tests[i].name);
+                printf("%s:" ANSI_COLOR_GREEN " [PASS]" ANSI_COLOR_RESET "\n",all_tests[i].name);
                 pass_count++;
 
             }else{
-                printf("[FALHO] %s Teste Falhou \n",all_tests[i].name);
+                printf("%s:"ANSI_COLOR_RED" [FALHO]"ANSI_COLOR_RESET" \n",all_tests[i].name);
             }
         }
         if(WIFSIGNALED(status) == 1){
-            printf("[FALHO] %s %s\n",all_tests[i].name,strsignal(WTERMSIG(status)));
+            if (WTERMSIG(status) == 14){
+                 printf("%s:"ANSI_COLOR_BLUE" [FALHO] TIME OUT"ANSI_COLOR_RESET"\n",all_tests[i].name);
+             }else{
+            printf("%s:"ANSI_COLOR_RED" [FALHO] %s"ANSI_COLOR_RESET"\n",all_tests[i].name,strsignal(WTERMSIG(status)));
+            }
         }
 
     }
